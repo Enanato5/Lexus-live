@@ -26,11 +26,22 @@ export default async function handler(req, res) {
       })
     });
 
-    const data = await response.json();
+    const text = await response.text();
+    let data;
+
+    try {
+      data = JSON.parse(text);
+    } catch (e) {
+      console.error("Resposta não é JSON:", text);
+      return res.status(500).json({
+        error: "Resposta inválida da Paysuite",
+        raw: text
+      });
+    }
 
     if (!response.ok) {
-      console.error("Erro Paysuite:", data);
-      return res.status(500).json({ error: "Erro ao criar pagamento" });
+      console.error("Erro da Paysuite:", data);
+      return res.status(500).json({ error: "Erro ao criar pagamento", details: data });
     }
 
     return res.status(200).json({ payment_url: data.payment_url });
