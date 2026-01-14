@@ -10,25 +10,34 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: "Dados incompletos" });
     }
 
+    const payload = {
+      amount: amount,
+      currency: "MZN",
+      description: `${service} - ${plan}`,
+
+      // 👇 Cliente básico (muitos gateways exigem isto)
+      customer: {
+        name: "Cliente Nexus",
+        email: "cliente@nexus.com",
+        phone: "258000000000"
+      },
+
+      callback_url: "https://lexus-live.vercel.app/api/payment-callback",
+      success_url: "https://wa.me/258876191026",
+      cancel_url: "https://lexus-live.vercel.app"
+    };
+
     const response = await fetch("https://paysuite.tech/api/payments", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         "Authorization": `Bearer ${process.env.PAYSUITE_API_KEY}`
       },
-      body: JSON.stringify({
-        amount: amount,
-        currency: "MZN",
-        description: `${service} - ${plan}`,
-        callback_url: "https://lexus-live.vercel.app/api/payment-callback",
-        success_url: "https://wa.me/258876191026",
-        cancel_url: "https://lexus-live.vercel.app"
-      })
+      body: JSON.stringify(payload)
     });
 
     const data = await response.json();
 
-    // 👇 MOSTRAR O ERRO REAL DA PAYSUITE
     if (!data || !data.payment_url) {
       console.error("Resposta da Paysuite:", data);
       return res.status(500).json({
