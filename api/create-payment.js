@@ -4,57 +4,39 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { service, plan, amount } = req.body;
+    const { service, plan, price } = req.body;
 
-    if (!service || !plan || !amount) {
+    if (!service || !plan || !price) {
       return res.status(400).json({ error: "Dados incompletos" });
     }
 
-    const payload = {
-      amount: amount,
-      currency: "MZN",
-      description: `${service} - ${plan}`,
-
-      // 👇 Cliente básico (muitos gateways exigem isto)
-      customer: {
-        name: "Cliente Nexus",
-        email: "cliente@nexus.com",
-        phone: "258000000000"
-      },
-
-      callback_url: "https://lexus-live.vercel.app/api/payment-callback",
-      success_url: "https://wa.me/258876191026",
-      cancel_url: "https://lexus-live.vercel.app"
-    };
-
-    const response = await fetch("https://paysuite.tech/api/payments", {
+    const response = await fetch("https://api.paysuite.tech/v1/payments", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${process.env.PAYSUITE_API_KEY}`
+        "Authorization": `Bearer ${process.env.PAYSUITE_API_KEY}`,
+        "Content-Type": "application/json"
       },
-      body: JSON.stringify(payload)
+      body: JSON.stringify({
+        amount: price,
+        currency: "MZN",
+        description: `${service} - ${plan}`,
+        callback_url: "https://lexus-live.vercel.app/api/payment-callback",
+        success_url: "https://wa.me/258876191026",
+        cancel_url: "https://lexus-live.vercel.app"
+      })
     });
 
     const data = await response.json();
 
-    if (!data || !data.payment_url) {
-      console.error("Resposta da Paysuite:", data);
-      return res.status(500).json({
-        error: "Erro ao gerar pagamento",
-        paysuite_response: data
-      });
+    if (!response.ok) {
+      console.error("Erro Paysuite:", data);
+      return res.status(500).json({ error: "Erro ao criar pagamento" });
     }
 
-    return res.status(200).json({
-      payment_url: data.payment_url
-    });
+    return res.status(200).json({ payment_url: data.payment_url });
 
   } catch (error) {
     console.error("Erro interno:", error);
-    return res.status(500).json({
-      error: "Erro no servidor",
-      details: error.message
-    });
+    return res.status(500).json({ error: "Erro interno no servidor" });
   }
 }
