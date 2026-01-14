@@ -1,173 +1,98 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nexus Digital | Acesso Premium & Streaming</title>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-    <style>
-        :root {
-            --bg-color: #050507;
-            --bg-secondary: #0e0e12;
-            --card-bg: rgba(255, 255, 255, 0.03);
-            --card-border: rgba(255, 255, 255, 0.08);
-            --card-hover: rgba(255, 255, 255, 0.08);
-            --primary: #6366f1;
-            --primary-glow: rgba(99, 102, 241, 0.4);
-            --accent: #a855f7;
-            --text-main: #ffffff;
-            --text-muted: #9ca3af;
-            --gradient-main: linear-gradient(135deg, var(--primary), var(--accent));
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        header {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            padding: 1.5rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: rgba(5, 5, 7, 0.8);
-            backdrop-filter: blur(12px);
-            z-index: 1000;
-            border-bottom: 1px solid var(--card-border);
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            background: var(--gradient-main);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .hero {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 0 1.5rem;
-        }
-
-        .cta-btn {
-            padding: 1rem 2.5rem;
-            background: var(--gradient-main);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            margin-top: 2rem;
-        }
-
-        section {
-            padding: 5rem 1.5rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-        }
-
-        .card {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 16px;
-            padding: 2rem;
-            transition: var(--transition);
-        }
-
-        .buy-btn {
-            width: 100%;
-            padding: 0.8rem;
-            background: transparent;
-            border: 1px solid var(--primary);
-            color: var(--primary);
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: 600;
-            margin-top: 1rem;
-        }
-
-        footer {
-            border-top: 1px solid var(--card-border);
-            padding: 3rem 1.5rem;
-            background: var(--bg-secondary);
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            text-align: center;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>Nexus Digital</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      background: #0d0d0d;
+      color: white;
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    .card {
+      background: #151515;
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 15px;
+      border: 1px solid #2b2b2b;
+    }
+    .btn {
+      background: #6d28d9;
+      border: none;
+      padding: 10px 20px;
+      color: white;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    .btn:hover {
+      background: #7c3aed;
+    }
+  </style>
 </head>
 <body>
 
-<header>
-    <div class="logo">NEXUS</div>
-</header>
+  <h1>NEXUS</h1>
+  <p>Acesso inteligente a serviços digitais premium.</p>
 
-<section class="hero">
-    <h1>Acesso inteligente a serviços digitais premium.</h1>
-    <p>Streaming, produtividade e tecnologia com entrega imediata.</p>
-    <button class="cta-btn" onclick="document.getElementById('servicos').scrollIntoView()">Ver Planos</button>
-</section>
+  <div class="card">
+    <h3>ChatGPT Go</h3>
+    <p>12 Meses – 699 MZN</p>
+    <button class="btn" onclick="comprar('ChatGPT Go', '12 Meses', 699)">Comprar</button>
+  </div>
 
-<section id="servicos">
-    <h2 style="text-align:center; margin-bottom:2rem;">Serviços Disponíveis</h2>
-    <div class="grid">
-        <div class="card">
-            <h3>ChatGPT Go</h3>
-            <p>12 Meses - 699 MZN</p>
-            <button class="buy-btn" onclick="openCheckout('ChatGPT Go','12 Meses - 699 MZN')">Comprar</button>
-        </div>
-        <div class="card">
-            <h3>Prime Video</h3>
-            <p>1 Mês - 90 MZN</p>
-            <button class="buy-btn" onclick="openCheckout('Prime Video','1 Mês - 90 MZN')">Comprar</button>
-        </div>
-        <div class="card">
-            <h3>Spotify</h3>
-            <p>1 Mês - 50 MZN</p>
-            <button class="buy-btn" onclick="openCheckout('Spotify','1 Mês - 50 MZN')">Comprar</button>
-        </div>
-    </div>
-</section>
+  <div class="card">
+    <h3>Prime Video</h3>
+    <p>1 Mês – 90 MZN</p>
+    <button class="btn" onclick="comprar('Prime Video', '1 Mês', 90)">Comprar</button>
+  </div>
 
-<footer>
-    &copy; 2023 Nexus Digital. Todos os direitos reservados.
-</footer>
+  <div class="card">
+    <h3>Spotify</h3>
+    <p>1 Mês – 50 MZN</p>
+    <button class="btn" onclick="comprar('Spotify', '1 Mês', 50)">Comprar</button>
+  </div>
 
-<script>
-    function openCheckout(service, plan) {
-        alert("Serviço: " + service + "\nPlano: " + plan + "\n\nRedirecionando para pagamento...");
+  <div class="card">
+    <h3>Crunchyroll</h3>
+    <p>Plano Mensal – 120 MZN</p>
+    <button class="btn" onclick="comprar('Crunchyroll', 'Mensal', 120)">Comprar</button>
+  </div>
+
+  <script>
+    async function comprar(servico, plano, valor) {
+      try {
+        const response = await fetch("/api/create-payment", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            service: servico,
+            plan: plano,
+            amount: valor
+          })
+        });
+
+        const data = await response.json();
+
+        if (!data.payment_url) {
+          alert("Erro ao gerar link de pagamento.");
+          console.error(data);
+          return;
+        }
+
+        // Redireciona para a Paysuite
+        window.location.href = data.payment_url;
+
+      } catch (error) {
+        console.error("Erro:", error);
+        alert("Erro ao conectar ao servidor.");
+      }
     }
-</script>
+  </script>
 
 </body>
 </html>
