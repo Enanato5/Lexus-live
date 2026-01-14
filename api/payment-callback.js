@@ -6,20 +6,13 @@ export default async function handler(req, res) {
   try {
     const event = req.body;
 
-    // Verifica se o pagamento foi concluído
     if (event.status === "paid" || event.status === "success") {
       console.log("Pagamento confirmado:", event);
-
-      // Por enquanto apenas confirmamos o recebimento
-      return res.status(200).json({
-        message: "Pagamento recebido com sucesso"
-      });
-    } else {
-      console.log("Evento recebido:", event);
-      return res.status(200).json({
-        message: "Evento recebido, mas não é pagamento concluído"
-      });
+      return res.status(200).json({ message: "Pagamento recebido com sucesso" });
     }
+
+    console.log("Evento recebido:", event);
+    return res.status(200).json({ message: "Evento recebido" });
 
   } catch (error) {
     console.error("Erro no webhook:", error);
