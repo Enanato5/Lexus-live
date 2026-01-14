@@ -28,9 +28,13 @@ export default async function handler(req, res) {
 
     const data = await response.json();
 
+    // 👇 MOSTRAR O ERRO REAL DA PAYSUITE
     if (!data || !data.payment_url) {
-      console.error("Erro da Paysuite:", data);
-      return res.status(500).json({ error: "Não foi possível gerar o link de pagamento" });
+      console.error("Resposta da Paysuite:", data);
+      return res.status(500).json({
+        error: "Erro ao gerar pagamento",
+        paysuite_response: data
+      });
     }
 
     return res.status(200).json({
@@ -38,7 +42,10 @@ export default async function handler(req, res) {
     });
 
   } catch (error) {
-    console.error("Erro ao criar pagamento:", error);
-    return res.status(500).json({ error: "Erro no servidor" });
+    console.error("Erro interno:", error);
+    return res.status(500).json({
+      error: "Erro no servidor",
+      details: error.message
+    });
   }
 }
