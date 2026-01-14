@@ -30,7 +30,7 @@ export default async function handler(req, res) {
 
     if (!data || !data.payment_url) {
       console.error("Erro da Paysuite:", data);
-      return res.status(500).json({ error: "Não foi possível gerar link de pagamento" });
+      return res.status(500).json({ error: "Não foi possível gerar o link de pagamento" });
     }
 
     return res.status(200).json({
